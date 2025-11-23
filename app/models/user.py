@@ -1,5 +1,5 @@
 from sqlalchemy import Integer, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base, TimestampMixin, UUIDMixin
 
@@ -37,3 +37,7 @@ class User(Base, UUIDMixin, TimestampMixin):
         Integer,
         nullable=True,
     )
+
+    goals = relationship("Goal", back_populates="user")
+    runs = relationship("Run", back_populates="user")
+    achievements = relationship("Achievement", back_populates="user")
