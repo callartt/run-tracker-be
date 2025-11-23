@@ -7,11 +7,13 @@ from app.core.exc import UserNotAuthenticatedException
 from app.core.unit_of_work import ABCUnitOfWork, UnitOfWork
 from app.models import User
 from app.services.auth import AuthService, get_auth_service
+from app.services.user import UserService, get_user_service
 from app.utils.security import decode_token
 
 UnitOfWorkDep = Annotated[ABCUnitOfWork, Depends(UnitOfWork)]
 
 AuthServiceDep = Annotated[AuthService, Depends(get_auth_service)]
+UserServiceDep = Annotated[UserService, Depends(get_user_service)]
 
 bearer_scheme = HTTPBearer()
 
