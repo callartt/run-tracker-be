@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from app.routers.auth import router as auth
+from app.routers.goals import router as goals
 from app.routers.health_check import router as healthcheck
 from app.routers.users import router as users
 
@@ -11,3 +12,4 @@ router = APIRouter(prefix="/api")
 router.include_router(healthcheck, prefix="/health-check", tags=["Health Check"])
 router.include_router(auth, prefix="/auth", tags=["Auth"])
 router.include_router(users, prefix="/users", tags=["Users"])
+router.include_router(goals, prefix="/goals", tags=["Goals"])
