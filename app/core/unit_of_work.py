@@ -6,10 +6,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.core.db import async_session
+from app.repositories.user import UserRepository
 
 
 class ABCUnitOfWork(ABC):
     session: AsyncSession
+
+    user: UserRepository
 
     @abstractmethod
     def __init__(self) -> None:
@@ -30,6 +33,8 @@ class UnitOfWork(ABCUnitOfWork):
 
     async def __aenter__(self) -> "ABCUnitOfWork":
         self.session = self.session_maker()
+
+        self.user = UserRepository(self.session)
 
         return self
 
