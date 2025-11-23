@@ -6,6 +6,7 @@ from fastapi.security import HTTPBearer
 from app.core.exc import UserNotAuthenticatedException
 from app.core.unit_of_work import ABCUnitOfWork, UnitOfWork
 from app.models import User
+from app.services.achievement import AchievementService, get_achievement_service
 from app.services.auth import AuthService, get_auth_service
 from app.services.goal import GoalService, get_goal_service
 from app.services.run import RunService, get_run_service
@@ -18,6 +19,7 @@ AuthServiceDep = Annotated[AuthService, Depends(get_auth_service)]
 UserServiceDep = Annotated[UserService, Depends(get_user_service)]
 GoalServiceDep = Annotated[GoalService, Depends(get_goal_service)]
 RunServiceDep = Annotated[RunService, Depends(get_run_service)]
+AchievementServiceDep = Annotated[AchievementService, Depends(get_achievement_service)]
 
 bearer_scheme = HTTPBearer()
 

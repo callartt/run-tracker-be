@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from app.routers.achievements import router as achievements
 from app.routers.auth import router as auth
 from app.routers.goals import router as goals
 from app.routers.health_check import router as healthcheck
@@ -15,3 +16,4 @@ router.include_router(auth, prefix="/auth", tags=["Auth"])
 router.include_router(users, prefix="/users", tags=["Users"])
 router.include_router(goals, prefix="/goals", tags=["Goals"])
 router.include_router(runs, prefix="/runs", tags=["Runs"])
+router.include_router(achievements, prefix="/achievements", tags=["Achievements"])
