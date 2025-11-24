@@ -10,6 +10,7 @@ from app.services.achievement import AchievementService, get_achievement_service
 from app.services.auth import AuthService, get_auth_service
 from app.services.goal import GoalService, get_goal_service
 from app.services.run import RunService, get_run_service
+from app.services.statistics import StatisticsService, get_statistics_service
 from app.services.user import UserService, get_user_service
 from app.utils.security import decode_token
 
@@ -20,6 +21,7 @@ UserServiceDep = Annotated[UserService, Depends(get_user_service)]
 GoalServiceDep = Annotated[GoalService, Depends(get_goal_service)]
 RunServiceDep = Annotated[RunService, Depends(get_run_service)]
 AchievementServiceDep = Annotated[AchievementService, Depends(get_achievement_service)]
+StatisticsServiceDep = Annotated[StatisticsService, Depends(get_statistics_service)]
 
 bearer_scheme = HTTPBearer()
 

@@ -30,7 +30,6 @@ class AchievementService:
 
                 # 4. Check if goal is met
                 if progress >= goal.target:
-                    # Better approach: fetch all achievements for this user/type and check metadata
                     achievements, _ = await uow.achievement.get_many(
                         user_uuid=user_uuid, achievement_type="GOAL_COMPLETION"
                     )
