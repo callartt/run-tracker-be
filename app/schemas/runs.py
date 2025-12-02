@@ -26,7 +26,7 @@ class RunCreateRequest(BaseModel):
     start_time: datetime
     end_time: datetime
     duration: float = Field(..., gt=0, description="Duration in minutes")
-    distance: float = Field(..., gt=0, description="Distance in km")
+    distance: float = Field(..., ge=0, description="Distance in km")
     calories: Optional[int] = Field(None, ge=0)
     route: Optional[List[Dict[str, Any]]] = None
 
