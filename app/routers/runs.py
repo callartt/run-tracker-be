@@ -32,7 +32,7 @@ async def list_runs(
     run_service: RunServiceDep,
     uow: UnitOfWorkDep,
     page: Annotated[int, Query(ge=1, description="Page number")] = 1,
-    limit: Annotated[int, Query(ge=1, le=100, description="Items per page")] = 10,
+    limit: Annotated[int, Query(ge=1, le=100000, description="Items per page")] = 10,
     period: Annotated[
         StatisticsPeriod | None, Query(description="Filter by time period")
     ] = None,
@@ -82,3 +82,13 @@ async def update_run(
     uow: UnitOfWorkDep,
 ) -> RunResponse:
     return await run_service.update_run(uow, current_user.uuid, run_uuid, data)
+
+
+@router.delete("/{run_uuid}", response_model=RunResponse)
+async def delete_run(
+    current_user: CurrentUserDep,
+    run_uuid: UUID,
+    run_service: RunServiceDep,
+    uow: UnitOfWorkDep,
+) -> RunResponse:
+    return await run_service.delete_run(uow, current_user.uuid, run_uuid)
