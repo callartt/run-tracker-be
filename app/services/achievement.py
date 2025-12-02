@@ -57,6 +57,8 @@ class AchievementService:
                                     "period": period_identifier,
                                     "target": goal.target,
                                     "achieved": progress,
+                                    "goal_type": goal.goal_type.value,
+                                    "time_period": goal.time_period.value,
                                 },
                             }
                         )

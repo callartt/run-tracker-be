@@ -103,6 +103,17 @@ class RunService:
             updated_run = await uow.run.update_one(run_uuid, update_data)
             return RunResponse.model_validate(updated_run)
 
+    async def delete_run(
+        self, uow: ABCUnitOfWork, user_uuid: UUID, run_uuid: UUID
+    ) -> RunResponse:
+        async with uow:
+            run = await uow.run.get_one(uuid=run_uuid, user_uuid=user_uuid)
+            if not run:
+                raise ObjectNotFoundException(run_uuid, "Run")
+
+            await uow.run.delete_one(run_uuid)
+            return RunResponse.model_validate(run)
+
 
 def get_run_service() -> RunService:
     return RunService(get_achievement_service())
