@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from app.routers.achievements import router as achievements
 from app.routers.auth import router as auth
+from app.routers.challenge import router as challenge
 from app.routers.friendships import router as friendships
 from app.routers.goals import router as goals
 from app.routers.health_check import router as healthcheck
@@ -23,3 +24,4 @@ router.include_router(achievements, prefix="/achievements", tags=["Achievements"
 router.include_router(statistics, prefix="/statistics", tags=["Statistics"])
 router.include_router(leaderboard, prefix="/leaderboard", tags=["Leaderboard"])
 router.include_router(friendships, prefix="/friendships", tags=["Friendships"])
+router.include_router(challenge, prefix="/challenges", tags=["Challenges"])

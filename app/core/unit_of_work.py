@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import settings
 from app.core.db import async_session
 from app.repositories.achievement import AchievementRepository
+from app.repositories.challenge import ChallengeAttemptRepository, ChallengeRepository
 from app.repositories.friendship import FriendshipRepository
 from app.repositories.goal import GoalRepository
 from app.repositories.run import RunRepository
@@ -21,6 +22,8 @@ class ABCUnitOfWork(ABC):
     run: RunRepository
     achievement: AchievementRepository
     friendship: FriendshipRepository
+    challenge: ChallengeRepository
+    challenge_attempt: ChallengeAttemptRepository
 
     @abstractmethod
     def __init__(self) -> None:
@@ -47,6 +50,8 @@ class UnitOfWork(ABCUnitOfWork):
         self.run = RunRepository(self.session)
         self.achievement = AchievementRepository(self.session)
         self.friendship = FriendshipRepository(self.session)
+        self.challenge = ChallengeRepository(self.session)
+        self.challenge_attempt = ChallengeAttemptRepository(self.session)
 
         return self
 
