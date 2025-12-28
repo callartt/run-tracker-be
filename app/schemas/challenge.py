@@ -41,7 +41,6 @@ class ChallengeListResponse(BaseModel):
 
 class ChallengeAttemptCreate(BaseModel):
     run_id: UUID
-    success: bool = True  # Frontend provides success status
 
 
 class ChallengeAttemptResponse(BaseModel):

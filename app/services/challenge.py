@@ -10,6 +10,7 @@ from app.schemas.challenge import (
     ChallengeListResponse,
     ChallengeResponse,
 )
+from app.utils.distance_utils import extract_route_endpoints, points_within_radius
 
 
 class ChallengeService:
@@ -126,8 +127,22 @@ class ChallengeService:
             if str(attempt_run.user_uuid) != str(user_id):
                 raise ForbiddenException("You can only submit your own runs")
 
-            # 4. Use success value from frontend (for now, calculation removed)
-            success = data.success
+            # 4. Calculate success based on route comparison
+            # Extract first and last points from both routes
+            source_start, source_end = extract_route_endpoints(source_run.route)
+            attempt_start, attempt_end = extract_route_endpoints(attempt_run.route)
+
+            # Success if both start and end points are within 100m radius
+            # Default to False if routes are missing or invalid
+            success = False
+            if source_start and source_end and attempt_start and attempt_end:
+                start_match = points_within_radius(
+                    source_start, attempt_start, radius_meters=100
+                )
+                end_match = points_within_radius(
+                    source_end, attempt_end, radius_meters=100
+                )
+                success = start_match and end_match
 
             # 5. Create Attempt
             attempt = await uow.challenge_attempt.create_one(
